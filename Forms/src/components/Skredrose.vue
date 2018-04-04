@@ -184,8 +184,11 @@
       </svg>
     </div>
     <div class="row">
-      <h4>Valgt himmelretning:</h4>
-      <p> {{ valgtHimmelretning.join(', ')}}</p>
+      <div class="">
+        <span>Valgt himmelretning:</span>
+        <span> {{ valgtHimmelretning.join(', ')}}</span>
+      </div>
+
     </div>
     <div class="row">
       <button type="button" class="btn btn-primary" name="button" @click="tomSkjema"> Tøm skjema</button>
@@ -239,8 +242,12 @@ svg  {
     transition: fill 0.3s
     /* fill:white */
   }
+/*
+  #kaker path:hover{
+    fill: rgb(173, 173, 173)
+  } */
 
-  .active, #kaker path:hover {
+  .active{
     fill: grey;
   }
 </style>

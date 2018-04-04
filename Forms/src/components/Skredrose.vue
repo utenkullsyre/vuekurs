@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="container" >
     <div class="row">
-      <svg >
+      <svg viewBox="0 0 105 105" pre>
         <defs
            id="defs4646">
           <linearGradient
@@ -55,7 +55,7 @@
            transform="matrix(1.1204162,0,0,1.1204162,-0.15654114,-0.15654114)"
            style="display:inline"
            inkscape:label="Skredrose">
-          <g  @click="test" @click.once="tomSkjema"
+          <g  @click.once="tomSkjema" @click="test"
              id="kaker"
              style="display:inline;fill:lightgray"
              inkscape:label="Kakestykke">
@@ -184,6 +184,10 @@
       </svg>
     </div>
     <div class="row">
+      <h4>Valgt himmelretning:</h4>
+      <p> {{ valgtHimmelretning.join(', ')}}</p>
+    </div>
+    <div class="row">
       <button type="button" class="btn btn-primary" name="button" @click="tomSkjema"> Tøm skjema</button>
     </div>
 
@@ -196,7 +200,7 @@ export default {
   data() {
     return {
       isActive: false,
-
+      valgtHimmelretning: []
     }
   },
   methods: {
@@ -204,14 +208,15 @@ export default {
       console.log(event);
       let test = document.querySelectorAll('#kaker path')
       event.target.classList.toggle('active')
-      console.log(Array.prototype.map.call(test, function(obj) {
+      this.valgtHimmelretning = Array.prototype.map.call(test, function(obj) {
         if (obj.classList.contains('active')) {
           return obj.id;
         }
-  }));
+  }).filter(item => item != null);
       // console.log(test);
     },
     tomSkjema(event) {
+      this.valgtHimmelretning = []
       let test = document.querySelectorAll('#kaker path')
       Array.prototype.map.call(test, function(obj) {
         obj.classList.remove('active')
@@ -223,6 +228,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
+svg  {
+  width: 150px;
+}
+
   #kaker path{
     cursor: pointer;
     stroke: black;

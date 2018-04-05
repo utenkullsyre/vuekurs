@@ -15,6 +15,7 @@
 
 <script>
 import axios from 'axios';
+import { EventBus } from '../main'
 
 
 export default {
@@ -24,7 +25,7 @@ export default {
       testArray: []
     }
   },
-  props: ['anleggnavn'],
+  props: ['url', 'options'],
   methods: {
     fjern(index) {
       // this.$refs.parent.removeChild(event.target)
@@ -34,37 +35,31 @@ export default {
   },
   // Fetches posts when the component is created.
   created() {
-    const options = {
-      params: {
-        f: 'json',
-        where: '1=1',
-        outFields: '*',
-        returnGeometry: false
-
-      }
-    }
-    axios.get(`http://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/0/query?`, options)
-    .then(response => {
-      // JSON responses are automatically parsed.
-      // console.log(response.data);
-      this.anlegg = response.data.features
-      const testArray = response.data.features.map(h => {return h.attributes.Anleggsnavn})
-      this.anleggnavn = testArray
-      this.$emit('testEmit', this.anleggnavn)
-
-    })
-    .catch(e => {
-      console.log(e)
-    })
-
-    // async / await version (created() becomes async created())
-    //
-    // try {
-    //   const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
-    //   this.posts = response.data
-    // } catch (e) {
-    //   this.errors.push(e)
-    // }
+  //
+  //
+    this.$emit('axiosResponse', axios.get(this.url, this.options))
+  //   // .then(response => {
+  //   //   // JSON responses are automatically parsed.
+  //   //   // console.log(response.data);
+  //   //   this.anlegg = response.data.features
+  //   //   const testArray = response.data.features.map(h => {return h.attributes.Anleggsnavn})
+  //   //   // this.anleggnavn = testArray
+  //   //   // this.$emit('testEmit', this.anleggnavn)
+  //   //   EventBus.$emit('anleggNavn', JSON.stringify(testArray));
+  //   //
+  //   // })
+  //   // .catch(e => {
+  //   //   console.log(e)
+  //   // })
+  //
+  //   // async / await version (created() becomes async created())
+  //   //
+  //   // try {
+  //   //   const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
+  //   //   this.posts = response.data
+  //   // } catch (e) {
+  //   //   this.errors.push(e)
+  //   // }
   }
 }
 </script>

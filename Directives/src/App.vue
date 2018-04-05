@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <app-autocomplete :items="[ 'Apple', 'Banana', 'Orange', 'Mango', 'Pear', 'Peach', 'Grape', 'Tangerine', 'Pineapple']"></app-autocomplete>
+            <!-- <app-autocomplete :items="anleggnavn"></app-autocomplete> -->
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <h1>Built-in Directives</h1>
                 <p v-text="'Some text'"></p>
@@ -20,23 +20,59 @@
             </div>
         </div>
         <div class="row">
-          <app-axios :anleggnavn="anleggnavn"></app-axios>
-          <p>{{ anleggnavn }}</p>
+          <app-axios @axiosResponse="testAxios" :url="url" :options="options"></app-axios>
+        </div>
+        <div class="row anlegg-container">
+          <app-anlegg v-for="item in anlegg">
+            <span class="header" slot="header" >{{ item.attributes.Anleggsnavn }}</span>
+            <p slot="content">{{ item.attributes.TYPEANLEGG}}</p>
+          </app-anlegg>
         </div>
     </div>
 </template>
 
 <script>
 import AxiosTest from './components/AxiosTest.vue'
-import Autocomplete from './components/Autocomplete.vue'
+import Anlegg from './components/Anlegg.vue'
+// import Autocomplete from './components/Autocomplete.vue'
+import { EventBus } from './main'
 
     export default {
       data() {
         return {
-          anleggnavn: ['Test']
-        }
-      },
+          anleggnavn: '',
+          url: 'http://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/0/query?',
+          options: {
+            params: {
+              f: 'json',
+              where: '1=1',
+              outFields: '*',
+              returnGeometry: false
+            }
+        },
+        response: null
+      }
+    },
       methods: {
+        testAxios(response) {
+          response
+          .then(response => {
+            console.log(response);
+            this.anlegg = response.data.features
+            // const testArray = response.data.features.map(h => {return h.attributes.Anleggsnavn}).filter(h => {
+            //   if(h){
+            //     return h
+            //   }
+            // })
+            // this.anleggnavn = testArray
+            // this.$emit('testEmit', this.anleggnavn)
+            // console.log('anleggNavn', JSON.stringify(testArray));
+
+          })
+          .catch(e => {
+            console.log(e)
+          })
+        },
         testTest() {
           console.log(this.$refs.numbers);
         },
@@ -44,13 +80,25 @@ import Autocomplete from './components/Autocomplete.vue'
           console.log(testArray);
         }
       },
+      created() {
+        EventBus.$on('anleggNavn', (anlegg) => {
+          this.anleggnavn = anlegg
+        });
+      },
       components: {
         appAxios: AxiosTest,
-        appAutocomplete: Autocomplete
+        appAnlegg: Anlegg
+        // appAutocomplete: Autocomplete
       }
     }
 </script>
 
-<style>
+<style scoped>
+  .anlegg-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+  }
 
 </style>

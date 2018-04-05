@@ -13,6 +13,8 @@ Vue.directive('highlight', {
   }
 });
 
+export const EventBus = new Vue();
+
 new Vue({
   el: '#app',
   render: h => h(App)

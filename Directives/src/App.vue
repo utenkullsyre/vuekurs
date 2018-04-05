@@ -23,7 +23,7 @@
           <app-axios @axiosResponse="testAxios" :url="url" :options="options"></app-axios>
         </div>
         <div class="row anlegg-container">
-          <app-anlegg v-for="item in anlegg">
+          <app-anlegg v-for="(item,index) in anlegg" @click.left="tsetsf(index)" :navn="item.attributes.Anleggsnavn" :aapen="aapenAnlegg">
             <span class="header" slot="header" >{{ item.attributes.Anleggsnavn }}</span>
             <p slot="content">{{ item.attributes.TYPEANLEGG}}</p>
           </app-anlegg>
@@ -40,6 +40,7 @@ import { EventBus } from './main'
     export default {
       data() {
         return {
+          aapenAnlegg: ['Tromsø ishall'],
           anlegg: null,
           anleggnavn: '',
           url: 'http://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/0/query?',
@@ -55,6 +56,10 @@ import { EventBus } from './main'
       }
     },
       methods: {
+        tsetsf(index) {
+          console.log(index);
+          this.anlegg.splice(index,1)
+        },
         testAxios(response) {
           response
           .then(response => {

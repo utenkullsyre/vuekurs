@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="boks" @click.prevent.right="isOpen = !isOpen">
-      <slot  name="header"  ></slot>
+  <div class="boks" @click.prevent.right="testFunc" :class="{aktiv: navn == aapen[0]}">
+      <slot  name="header"></slot>
       <slot class="content" name="content" v-if="isOpen"></slot>
   </div>
 
@@ -13,9 +13,12 @@ export default {
       isOpen: false
     }
   },
+  props: ['aapen', 'navn'],
   methods: {
     testFunc() {
       alert('Klikk')
+      this.aapen[0] = this.navn
+      console.log('Helvete', this.aapen, this.navn);
     }
   }
 }
@@ -39,5 +42,9 @@ export default {
 .content {
   font-size: 1em;
   font-style: italic;
+}
+
+.aktiv {
+  background-color: #969696
 }
 </style>

@@ -11,6 +11,11 @@
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                 <h1>Custom Directives</h1>
+                <p v-highlight:background="'lightblue'" ref="testref">Color this</p>
+                <button class="btn btn-primary" type="button" name="button" @click="testTest">Test</button>
+                <ul>
+                  <li v-for="n in 10" ref="numbers">{{ n }}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -18,6 +23,11 @@
 
 <script>
     export default {
+      methods: {
+        testTest() {
+          console.log(this.$refs.numbers);
+        }
+      }
     }
 </script>
 

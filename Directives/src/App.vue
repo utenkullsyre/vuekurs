@@ -40,6 +40,7 @@ import { EventBus } from './main'
     export default {
       data() {
         return {
+          anlegg: null,
           anleggnavn: '',
           url: 'http://kart.tromso.kommune.no/arcgis/rest/services/Temadata/Friluftsliv/FeatureServer/0/query?',
           options: {

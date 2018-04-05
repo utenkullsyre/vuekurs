@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="boks" @mouseover="isOpen = !isOpen">
+  <div class="boks" @click.prevent.right="isOpen = !isOpen">
       <slot  name="header"  ></slot>
       <slot class="content" name="content" v-if="isOpen"></slot>
   </div>

@@ -95,6 +95,15 @@
 
 <script>
     export default {
+      data() {
+        return {
+          userData: {
+            name: '',
+            email: '',
+            password: ''
+          }
+        }
+      }
     }
 </script>
 

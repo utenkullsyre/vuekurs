@@ -232,7 +232,7 @@ export default {
 
 <style lang="css" scoped>
 svg  {
-  width: 150px;
+  width: 250px;
 }
 
   #kaker path{

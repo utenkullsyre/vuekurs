@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "vue": "^2.0.1"
+    "clipboard": "^2.0.0",
+    "vue": "^2.0.1",
+    "vue-clipboard2": "^0.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
